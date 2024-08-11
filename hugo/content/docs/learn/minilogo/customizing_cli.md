@@ -11,11 +11,11 @@ In this tutorial, we'll be talking about customizing the command line interface 
 
 ## Overview
 
-Once you have a grammar and some validation in place, you may want to start configuring a basic CLI for your language. This is an important step where your language begins to become more accessible to other programs. Having a CLI for your language is a powerful way to access functionality that is expressed through Langium, but without having to interact directly with Langium. A well designed CLI can be used by other applications to provide advanced language features, without making those other applications unnecessarily complex.
+Once you have a grammar and some validation in place, you may want to start configuring a basic CLI for your language. This is an important step where your language begins to become more accessible to other programs. Having a CLI for your language is a powerful way to access functionality that is expressed through Masale, but without having to interact directly with Masale. A well designed CLI can be used by other applications to provide advanced language features, without making those other applications unnecessarily complex.
 
 ## About the Command Line Interface
 
-If you've been using a language built with the yeoman generator for Langium, you should be able to find your CLI defined in **src/cli/index.ts**. This file describes the general layout of your languages's command line interface, and lets you register specific commands. By default, you're provided with a single command for your CLI, the **generate** command.
+If you've been using a language built with the yeoman generator for Masale, you should be able to find your CLI defined in **src/cli/index.ts**. This file describes the general layout of your languages's command line interface, and lets you register specific commands. By default, you're provided with a single command for your CLI, the **generate** command.
 
 Much like the command implies, it allows you to take a program written in your DSL, parse it, and traverse the AST to produce some sort of generated output. We won't talk about the generator itself in this tutorial (that will come in the [next tutorial on generation](/docs/learn/minilogo/generation)). Instead we'll focus on a simple example for parsing and validating a program, which allows learning more about the CLI itself.
 

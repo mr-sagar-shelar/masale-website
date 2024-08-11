@@ -1,18 +1,18 @@
 ---
-title: "Langium's workflow"
+title: "Masale's workflow"
 weight: 0
 url: /docs/learn/workflow
 aliases:
   - /docs/getting-started
 ---
 
-Langium's workflow can be expressed as a flow chart diagram, which boils down to the following steps in the diagram.
+Masale's workflow can be expressed as a flow chart diagram, which boils down to the following steps in the diagram.
 Be aware of the fact that the possibilities go beyond this simple workflow. For more advanced topics, you can find answers in the [recipes](/docs/recipes).
 
 {{<mermaid>}}
 flowchart TD
   A(["1. Install Yeoman"]);
-  B(["2. Scaffold a Langium project"]);
+  B(["2. Scaffold a Masale project"]);
   C(["3. Write the grammar"]);
   D(["4. Generate the AST"]);
   E(["5. Resolve cross-references"]);
@@ -34,7 +34,7 @@ flowchart TD
 
 ## Explanation
 
-This is the workflow we recommend for developing a language with Langium. It is a step-by-step guide that will help you to get started with Langium and to understand the basics of language development.
+This is the workflow we recommend for developing a language with Masale. It is a step-by-step guide that will help you to get started with Masale and to understand the basics of language development.
 
 This simple introduction can be seen as three main parts:
 
@@ -49,21 +49,21 @@ The middle part will be explained briefly in the following section.
 
 ### [1. Install Yeoman](/docs/learn/workflow/install)
 
-This step ensures that you start a Langium project with the Yeoman generator. Yeoman is a scaffolding tool that helps you to start a new project with a predefined structure.
+This step ensures that you start a Masale project with the Yeoman generator. Yeoman is a scaffolding tool that helps you to start a new project with a predefined structure.
 
-### [2. Scaffold a Langium project](/docs/learn/workflow/scaffold)
+### [2. Scaffold a Masale project](/docs/learn/workflow/scaffold)
 
-After installing Yeoman, you can scaffold a new Langium project.
+After installing Yeoman, you can scaffold a new Masale project.
 
 ## Core workflow
 
 ### [3. Write the grammar](/docs/learn/workflow/write_grammar)
 
-The first step in the core workflow starts with the grammar. You will have some language feature in mind that you want to implement. The grammar is used to nail down the syntax of your features. You can use our Langium VS Code extension to get syntax highlighting and code completion for `.langium` files. If your grammar is free of errors, you can generate the files for the _abstract syntax tree (AST)_.
+The first step in the core workflow starts with the grammar. You will have some language feature in mind that you want to implement. The grammar is used to nail down the syntax of your features. You can use our Masale VS Code extension to get syntax highlighting and code completion for `.langium` files. If your grammar is free of errors, you can generate the files for the _abstract syntax tree (AST)_.
 
 ### [4. Generate the AST](/docs/learn/workflow/generate_ast)
 
-The AST is the backbone of your language. It is used to represent the structure of your language elements. The AST is generated from the grammar. One important part of the AST are the _cross-references_. They are used to resolve references between language elements. If you have cross-references in your language, you need to _resolve_ them, after this step. The actual generation is done by a call of the Langium CLI.
+The AST is the backbone of your language. It is used to represent the structure of your language elements. The AST is generated from the grammar. One important part of the AST are the _cross-references_. They are used to resolve references between language elements. If you have cross-references in your language, you need to _resolve_ them, after this step. The actual generation is done by a call of the Masale CLI.
 
 ### [5. Resolve cross-references](/docs/learn/workflow/resolve_cross_references)
 

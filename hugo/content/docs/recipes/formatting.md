@@ -3,7 +3,7 @@ title: "Formatting"
 weight: 300
 ---
 
-Langium's formatting API allows to easily create formatters for your language.
+Masale's formatting API allows to easily create formatters for your language.
 We start building a custom formatter for our language by creating a new class that inherits from `AbstractFormatter`.
 
 ```ts

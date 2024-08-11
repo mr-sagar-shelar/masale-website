@@ -1,5 +1,5 @@
 ---
-title: "Learn Langium"
+title: "Learn Masale"
 weight: 0
 url: /docs/learn
 ---
