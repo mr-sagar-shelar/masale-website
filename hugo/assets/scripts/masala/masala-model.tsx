@@ -92,7 +92,7 @@ class App extends React.Component<{}, AppState> {
   onDocumentChange(resp: DocumentChangeResponse) {
     // get the AST from the response and deserialize it
     const ast = deserializeAST(resp.content) as DomainModelAstNode;
-
+    
     this.setState({
       ast: ast,
       diagnostics: resp.diagnostics,
@@ -170,7 +170,6 @@ class App extends React.Component<{}, AppState> {
 
   setUiIndex(index: number) {
     this.setState({ uiIndex: index });
-    // this.monacoEditor.current?.getEditorWrapper()?.getEditor()?.setValue(examples[index]);
   }
 
   setExampleIndex(index: number) {
@@ -255,6 +254,21 @@ class App extends React.Component<{}, AppState> {
                 <option value="9">Web</option>
                 <option value="10">Mobile</option>
               </select>
+              <button
+                onClick={() => {
+                  const currentValue = this.monacoEditor.current
+                    ?.getEditorWrapper()
+                    ?.getEditor()
+                    ?.getValue();
+                  this.monacoEditor.current?.getEditorWrapper()?.getEditor()
+                    ?.setValue(`${currentValue}\nentity Sagar extends HasAuthor {
+    title: String
+}`);
+                }}
+                className="text-white border-2 border-solid transition-shadow bg-emeraldLangiumABitDarker rounded-md p-4 text-center text-sm enabled:hover:shadow-opacity-50 enabled:hover:shadow-[0px_0px_15px_0px] enabled:hover:shadow-emeraldLangium disabled:border-gray-400 disabled:text-gray-400 disabled:bg-emeraldLangiumDarker "
+              >
+                Add Entity
+              </button>
             </div>
             <div className="border border-emeraldLangium h-full w-full">
               {this.state.ast &&
