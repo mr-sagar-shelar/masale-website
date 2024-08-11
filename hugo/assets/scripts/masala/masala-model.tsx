@@ -11,6 +11,7 @@ import {
   DomainModelAstNode,
   example,
   examples,
+  getDomainModelAst,
   getMainTreeNode,
   syntaxHighlighting,
 } from "./masala-model-tools";
@@ -132,6 +133,41 @@ class App extends React.Component<{}, AppState> {
     );
   }
 
+  renderAtom(ast: DomainModelAstNode): JSX.Element {
+    if (!ast) {
+      return <div>No AST available.</div>;
+    }
+
+    // if there are no errors, render the tree
+    if (
+      this.state.diagnostics == null ||
+      this.state.diagnostics.filter((i) => i.severity === 1).length == 0
+    ) {
+      const entities = getDomainModelAst(ast as DomainModelAstNode).entities;
+      return <Atoms entities={entities} />;
+    }
+
+    // otherwise, render the errors
+    return (
+      <div className="flex flex-col h-full w-full p-4 justify-start items-center my-10">
+        <div className="text-white border-2 border-solid border-accentRed rounded-md p-4 text-left text-sm cursor-default">
+          {this.state.diagnostics
+            .filter((i) => i.severity === 1)
+            .map((diagnostic, index) => (
+              <details key={index}>
+                <summary>{`Line ${diagnostic.range.start.line + 1}-${
+                  diagnostic.range.end.line + 1
+                }: ${diagnostic.message}`}</summary>
+                <p>
+                  Source: {diagnostic.source} | Code: {diagnostic.code}
+                </p>
+              </details>
+            ))}
+        </div>
+      </div>
+    );
+  }
+
   setUiIndex(index: number) {
     this.setState({ uiIndex: index });
     // this.monacoEditor.current?.getEditorWrapper()?.getEditor()?.setValue(examples[index]);
@@ -221,8 +257,12 @@ class App extends React.Component<{}, AppState> {
               </select>
             </div>
             <div className="border border-emeraldLangium h-full w-full">
-              {this.state.ast && this.state.uiIndex == 0 && this.renderAST(this.state.ast)}
-              {this.state.uiIndex != 0 && <Atoms />}
+              {this.state.ast &&
+                this.state.uiIndex == 0 &&
+                this.renderAST(this.state.ast)}
+              {this.state.ast &&
+                this.state.uiIndex != 0 &&
+                this.renderAtom(this.state.ast)}
             </div>
           </div>
         </div>
