@@ -9,9 +9,12 @@ import {
   addEdge,
   Node,
   Edge,
+  OnNodesChange,
+  applyNodeChanges,
 } from "@xyflow/react";
 import { Entity } from "./masala-model-tools";
 
+let hashmap = new Map<string, Node>();
 let initialNodes = [
   { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
   { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
@@ -31,7 +34,7 @@ export default function Atoms(props: AtomsProps) {
     (params) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
-  
+
   React.useEffect(() => {
     const entityEdges: Edge[] = [];
     const updatedNodes: Node[] = entities.map((entity, index): Node => {
@@ -41,25 +44,59 @@ export default function Atoms(props: AtomsProps) {
         data: { label: entity.name },
       };
       if (entity.superType) {
-        entityEdges.push(
-          { id: `${entity.name}-${entity.superType.ref.name}`, source: entity.name, target: entity.superType.ref.name }
-        )
+        entityEdges.push({
+          id: `${entity.name}-${entity.superType.ref.name}`,
+          source: entity.name,
+          target: entity.superType.ref.name,
+        });
       }
+
+      const existingNode = hashmap.get(entity.name);
+      if (existingNode) {
+        const newNodeWithPosition = {
+          ...newNode,
+          position: existingNode.position,
+        };
+        hashmap.set(entity.name, newNodeWithPosition);
+        console.error(
+          ` $$$$ ${entity.name} position = ${JSON.stringify(
+            newNodeWithPosition.position,
+            null,
+            2
+          )}`
+        );
+        return newNodeWithPosition;
+      }
+      hashmap.set(entity.name, newNode);
       return newNode;
     });
     setNodes(updatedNodes);
     setEdges(entityEdges);
+    // console.error(`$$$$ Entities Changed ${entities.length}`);
+    // console.error(` $$$$ HashMap = ${JSON.stringify(hashmap, null, 2)}`);
     // console.error(` $$$$ ENtities = ${JSON.stringify(updatedNodes, null, 2)}`);
     // console.error(` $$$$ Edges = ${JSON.stringify(entityEdges, null, 2)}`);
   }, [entities]);
 
+  const onNodePositionChange: OnNodesChange = useCallback(
+    (changes) => {
+      const updatedNode = changes[0] as Node;
+      if (updatedNode.dragging == false) {
+        console.error(` $$$$ changes = ${JSON.stringify(updatedNode, null, 2)}`);
+        hashmap.set(updatedNode.id, updatedNode);
+      }
+      setNodes((nds) => applyNodeChanges(changes, nds))
+    },
+    [setNodes],
+  );
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
-        onNodesChange={onNodesChange}
+        onNodesChange={onNodePositionChange}
+        // onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
       >
