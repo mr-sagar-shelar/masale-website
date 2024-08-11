@@ -1,1 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Learn Masale on Langium</title><link>/docs/learn/</link><description>Recent content in Learn Masale on Langium</description><generator>Hugo -- gohugo.io</generator><atom:link href="/docs/learn/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Learn Masale on Langium</title>
+    <link>//localhost:1313/docs/learn/</link>
+    <description>Recent content in Learn Masale on Langium</description>
+    <generator>Hugo -- gohugo.io</generator><atom:link href="//localhost:1313/docs/learn/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
