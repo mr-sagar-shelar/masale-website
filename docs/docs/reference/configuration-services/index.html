@@ -54,7 +54,7 @@ Shared Services    The shared services are services that are shared across all L
 <div class=gdoc-menu-header>
 <span class=gdoc-menu-header__items>
 <span>
-<a href=https://github.com/eclipse-langium/langium class=gdoc-header__link><svg class="icon gdoc_github"><title>GitHub</title><use xlink:href="#gdoc_github"/></svg>
+<a href=https://github.com/mr-sagar-shelar/masale-website class=gdoc-header__link><svg class="icon gdoc_github"><title>GitHub</title><use xlink:href="#gdoc_github"/></svg>
 </a>
 </span>
 <span id=gdoc-dark-mode><svg class="icon gdoc_brightness_dark"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_dark"/></svg><svg class="icon gdoc_brightness_light"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_light"/></svg><svg class="icon gdoc_brightness_auto"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_auto"/></svg>
@@ -431,7 +431,7 @@ Get npm Package
 </li>
 <li>
 <span class=flex><svg class="icon gdoc_github"><use xlink:href="#gdoc_github"/></svg>
-<a href=https://github.com/eclipse-langium/langium class=gdoc-nav__entry>
+<a href=https://github.com/mr-sagar-shelar/masale-website class=gdoc-nav__entry>
 View Source
 </a>
 </span>
@@ -450,7 +450,7 @@ justify-between" itemprop=breadcrumb>
 </div>
 <div>
 <span class=editpage><svg class="icon gdoc_code"><use xlink:href="#gdoc_code"/></svg>
-<a href=https://github.com/eclipse-langium/langium-website/blob/main/hugo/content/docs/reference/configuration-services.md>
+<a href=https://github.com/mr-sagar-shelar/masale-website-website/blob/main/hugo/content/docs/reference/configuration-services.md>
 Edit this page
 </a>
 </span>
@@ -492,7 +492,7 @@ Customization
 </a>
 </h2>
 </div><p>If you have used the <a class=gdoc-markdown__link href=https://www.npmjs.com/package/generator-langium>Yeoman generator</a>, the entry point to services customization is found in the <code>src/language/...-module.ts</code> file, where &lsquo;&mldr;&rsquo; is the name of your language. There you can register new services or override the default implementations of services. Langium implements the <em>Inversion of Control</em> principle via the <em>Dependency Injection</em> pattern, which promotes loosely-coupled architectures, maintainability, and extensibility.</p>
-<p>For the following sections, we will use the <a class=gdoc-markdown__link href=https://github.com/eclipse-langium/langium/tree/main/examples/arithmetics>arithmetics example</a> to describe the procedure for replacing or adding services. Note that all names prefixed with <em>Arithmetics</em> should be understood as being specific to the language named <em>Arithmetics</em>, and in your project those services' names will be prefixed with your own language name.</p>
+<p>For the following sections, we will use the <a class=gdoc-markdown__link href=https://github.com/mr-sagar-shelar/masale-website/tree/main/examples/arithmetics>arithmetics example</a> to describe the procedure for replacing or adding services. Note that all names prefixed with <em>Arithmetics</em> should be understood as being specific to the language named <em>Arithmetics</em>, and in your project those services' names will be prefixed with your own language name.</p>
 <p>Please note that it is <em>not mandatory</em> to implement all custom code via dependency injection. The main reason for using dependency injection is when your custom code <em>depends</em> on other services. In many cases you can use plain functions instead of service classes to implement your application logic.</p>
 <div class=gdoc-page__anchorwrap>
 <h3 id=overriding-and-extending-services>
@@ -501,7 +501,7 @@ Overriding and Extending Services
 </a>
 </h3>
 </div><p>Thanks to the dependency injection pattern used in Langium, your can change the behavior of a service or add to its functionality in one place without having to modify every piece of code that depends on the service to be overridden or extended.</p>
-<p>The <a class=gdoc-markdown__link href=https://github.com/eclipse-langium/langium/tree/main/examples/arithmetics>arithmetics example</a> provides a custom implementation of the <code>ScopeProvider</code> service, which overrides functionalities from the default implementation <code>DefaultScopeProvider</code>.</p>
+<p>The <a class=gdoc-markdown__link href=https://github.com/mr-sagar-shelar/masale-website/tree/main/examples/arithmetics>arithmetics example</a> provides a custom implementation of the <code>ScopeProvider</code> service, which overrides functionalities from the default implementation <code>DefaultScopeProvider</code>.</p>
 <p>First, we need to register the new implementation of <code>ScopeProvider</code> inside of the <code>ArithmeticsModule</code>:</p>
 <pre><code class=language-Typescript>export const ArithmeticsModule: Module&lt;ArithmeticsServices, PartialLangiumServices &amp; ArithmeticsAddedServices&gt; = {
     references: {

@@ -9,7 +9,7 @@ One common situation where it makes sense to create dependent languages is when 
 
 > Notice that for `n` independent languages, you can simply create `n` independent Langium projects.
 
-If you want to see a living example, I recommend to visit the [`requirements` example](https://github.com/eclipse-langium/langium/tree/main/examples/requirements) of the main [Langium repository](https://github.com/eclipse-langium/langium).
+If you want to see a living example, I recommend to visit the [`requirements` example](https://github.com/mr-sagar-shelar/masale-website/tree/main/examples/requirements) of the main [Langium repository](https://github.com/mr-sagar-shelar/masale-website).
 
 ## Our plan
 
@@ -444,4 +444,4 @@ In this section we will list common mistakes.
 
 * Since we are basically just copy-pasting given configuration, be aware of what you are pasting. Make sure that the code still makes sense after copying. You probably forgot to adapt the pasted code.
 
-If you encounter any problems, we are happy to help in our [discussions](https://github.com/eclipse-langium/langium/discussions) page or our [issue tracker](https://github.com/eclipse-langium/langium/issues).
+If you encounter any problems, we are happy to help in our [discussions](https://github.com/mr-sagar-shelar/masale-website/discussions) page or our [issue tracker](https://github.com/mr-sagar-shelar/masale-website/issues).

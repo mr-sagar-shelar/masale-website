@@ -1,5 +1,5 @@
 header:
   - name: GitHub
-    ref: https://github.com/eclipse-langium/langium
+    ref: https://github.com/mr-sagar-shelar/masale-website
     icon: gdoc_github
     external: true

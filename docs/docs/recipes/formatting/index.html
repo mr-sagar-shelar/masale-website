@@ -51,7 +51,7 @@ import { AbstractFormatter, AstNode, Formatting } from 'langium'; export class C
 <div class=gdoc-menu-header>
 <span class=gdoc-menu-header__items>
 <span>
-<a href=https://github.com/eclipse-langium/langium class=gdoc-header__link><svg class="icon gdoc_github"><title>GitHub</title><use xlink:href="#gdoc_github"/></svg>
+<a href=https://github.com/mr-sagar-shelar/masale-website class=gdoc-header__link><svg class="icon gdoc_github"><title>GitHub</title><use xlink:href="#gdoc_github"/></svg>
 </a>
 </span>
 <span id=gdoc-dark-mode><svg class="icon gdoc_brightness_dark"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_dark"/></svg><svg class="icon gdoc_brightness_light"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_light"/></svg><svg class="icon gdoc_brightness_auto"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_auto"/></svg>
@@ -428,7 +428,7 @@ Get npm Package
 </li>
 <li>
 <span class=flex><svg class="icon gdoc_github"><use xlink:href="#gdoc_github"/></svg>
-<a href=https://github.com/eclipse-langium/langium class=gdoc-nav__entry>
+<a href=https://github.com/mr-sagar-shelar/masale-website class=gdoc-nav__entry>
 View Source
 </a>
 </span>
@@ -447,7 +447,7 @@ justify-between" itemprop=breadcrumb>
 </div>
 <div>
 <span class=editpage><svg class="icon gdoc_code"><use xlink:href="#gdoc_code"/></svg>
-<a href=https://github.com/eclipse-langium/langium-website/blob/main/hugo/content/docs/recipes/formatting.md>
+<a href=https://github.com/mr-sagar-shelar/masale-website-website/blob/main/hugo/content/docs/recipes/formatting.md>
 Edit this page
 </a>
 </span>
@@ -474,7 +474,7 @@ export const CustomModule: Module&lt;CustomServices, PartialLangiumServices&gt; 
 </code></pre>
 <p>The entry point for the formatter is the abstract <code>format(AstNode)</code> method. The <code>AbstractFormatter</code> calls this method for every node of our model.
 To perform custom formatting for every type of node, we will use pattern matching.
-In the following example, we will take a closer look at a formatter for the <a class=gdoc-markdown__link href=https://github.com/eclipse-langium/langium/tree/main/examples/domainmodel>domain-model</a> language.
+In the following example, we will take a closer look at a formatter for the <a class=gdoc-markdown__link href=https://github.com/mr-sagar-shelar/masale-website/tree/main/examples/domainmodel>domain-model</a> language.
 In particular, we will see how we can format the root of our model (<code>DomainModel</code>) and each nested element (<code>Entity</code> and <code>PackageDeclaration</code>).</p>
 <p>To format each node, we use the <code>getNodeFormatter</code> method of the <code>AbstractFormatter</code>. The resulting generic <code>NodeFormatter&lt;T extends AstNode></code> provides us with methods to select specific parts of a parsed <code>AstNode</code> such as properties or keywords.</p>
 <p>Once we have selected the nodes of our document that we are interested in formatting, we can start applying a specific formatting.

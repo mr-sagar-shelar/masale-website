@@ -48,7 +48,7 @@
 <div class=gdoc-menu-header>
 <span class=gdoc-menu-header__items>
 <span>
-<a href=https://github.com/eclipse-langium/langium class=gdoc-header__link><svg class="icon gdoc_github"><title>GitHub</title><use xlink:href="#gdoc_github"/></svg>
+<a href=https://github.com/mr-sagar-shelar/masale-website class=gdoc-header__link><svg class="icon gdoc_github"><title>GitHub</title><use xlink:href="#gdoc_github"/></svg>
 </a>
 </span>
 <span id=gdoc-dark-mode><svg class="icon gdoc_brightness_dark"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_dark"/></svg><svg class="icon gdoc_brightness_light"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_light"/></svg><svg class="icon gdoc_brightness_auto"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_auto"/></svg>
@@ -425,7 +425,7 @@ Get npm Package
 </li>
 <li>
 <span class=flex><svg class="icon gdoc_github"><use xlink:href="#gdoc_github"/></svg>
-<a href=https://github.com/eclipse-langium/langium class=gdoc-nav__entry>
+<a href=https://github.com/mr-sagar-shelar/masale-website class=gdoc-nav__entry>
 View Source
 </a>
 </span>
@@ -444,7 +444,7 @@ justify-between" itemprop=breadcrumb>
 </div>
 <div>
 <span class=editpage><svg class="icon gdoc_code"><use xlink:href="#gdoc_code"/></svg>
-<a href=https://github.com/eclipse-langium/langium-website/blob/main/hugo/content/docs/reference/grammar-language.md>
+<a href=https://github.com/mr-sagar-shelar/masale-website-website/blob/main/hugo/content/docs/reference/grammar-language.md>
 Edit this page
 </a>
 </span>
@@ -505,7 +505,7 @@ Edit this page
 </ul>
 </li>
 </ul></nav><hr></div>
-<p>The grammar language describes the syntax and structure of your language. The <a class=gdoc-markdown__link href=https://github.com/eclipse-langium/langium/blob/main/packages/langium/src/grammar/langium-grammar.langium>Langium grammar language</a> is implemented using Langium itself and therefore follows the same syntactic rules as any language created with Langium. The grammar language will define the structure of the <em>abstract syntax tree</em> (AST) which in Langium is a collection of <em>TypeScript types</em> describing the content of a parsed document and organized hierarchically. The individual nodes of the tree are then represented with JavaScript objects at runtime.</p>
+<p>The grammar language describes the syntax and structure of your language. The <a class=gdoc-markdown__link href=https://github.com/mr-sagar-shelar/masale-website/blob/main/packages/langium/src/grammar/langium-grammar.langium>Langium grammar language</a> is implemented using Langium itself and therefore follows the same syntactic rules as any language created with Langium. The grammar language will define the structure of the <em>abstract syntax tree</em> (AST) which in Langium is a collection of <em>TypeScript types</em> describing the content of a parsed document and organized hierarchically. The individual nodes of the tree are then represented with JavaScript objects at runtime.</p>
 <p>In the following, we describe the Langium syntax and document structure.</p>
 <div class=gdoc-page__anchorwrap>
 <h2 id=language-declaration>
@@ -717,7 +717,7 @@ Unassigned Rule Calls
 </a>
 </h4>
 </div><p>Parser rules do not necessarily need to create an object, they can also refer to other parser rules which in turn will be responsible for returning the object.
-For example, in the <a class=gdoc-markdown__link href=https://github.com/eclipse-langium/langium/blob/main/examples/arithmetics/src/language-server/arithmetics.langium>Arithmetics example</a>:</p>
+For example, in the <a class=gdoc-markdown__link href=https://github.com/mr-sagar-shelar/masale-website/blob/main/examples/arithmetics/src/language-server/arithmetics.langium>Arithmetics example</a>:</p>
 <pre><code class=language-langium>AbstractDefinition:
 	Definition | DeclaredParameter;
 </code></pre>
@@ -819,7 +819,7 @@ Data Type Rules
 </a>
 </h3>
 </div><p>Data type rules are similar to terminal rules as they match a sequence of characters. However, they are parser rules and are therefore context-dependent. This allows for more flexible parsing, as they can be interspersed with hidden terminals, such as whitespaces or comments. Contrary to terminal rules, they cannot use <em>regular expressions</em> to match a stream of characters, so they have to be composed of keywords, terminal rules or other data type rules.</p>
-<p>The following example from the <a class=gdoc-markdown__link href=https://github.com/eclipse-langium/langium/blob/main/examples/domainmodel/src/language-server/domain-model.langium>domain model example</a> uses the <code>QualifiedName</code> data type rule to enable references to other elements using their fully qualified name.</p>
+<p>The following example from the <a class=gdoc-markdown__link href=https://github.com/mr-sagar-shelar/masale-website/blob/main/examples/domainmodel/src/language-server/domain-model.langium>domain model example</a> uses the <code>QualifiedName</code> data type rule to enable references to other elements using their fully qualified name.</p>
 <pre><code class=language-langium>QualifiedName returns string:
     ID ('.' ID)*;
 </code></pre>

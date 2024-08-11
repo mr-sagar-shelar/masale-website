@@ -54,7 +54,7 @@ A LangiumDocument goes through seven different states during its lifecycle:
 <div class=gdoc-menu-header>
 <span class=gdoc-menu-header__items>
 <span>
-<a href=https://github.com/eclipse-langium/langium class=gdoc-header__link><svg class="icon gdoc_github"><title>GitHub</title><use xlink:href="#gdoc_github"/></svg>
+<a href=https://github.com/mr-sagar-shelar/masale-website class=gdoc-header__link><svg class="icon gdoc_github"><title>GitHub</title><use xlink:href="#gdoc_github"/></svg>
 </a>
 </span>
 <span id=gdoc-dark-mode><svg class="icon gdoc_brightness_dark"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_dark"/></svg><svg class="icon gdoc_brightness_light"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_light"/></svg><svg class="icon gdoc_brightness_auto"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_auto"/></svg>
@@ -431,7 +431,7 @@ Get npm Package
 </li>
 <li>
 <span class=flex><svg class="icon gdoc_github"><use xlink:href="#gdoc_github"/></svg>
-<a href=https://github.com/eclipse-langium/langium class=gdoc-nav__entry>
+<a href=https://github.com/mr-sagar-shelar/masale-website class=gdoc-nav__entry>
 View Source
 </a>
 </span>
@@ -450,7 +450,7 @@ justify-between" itemprop=breadcrumb>
 </div>
 <div>
 <span class=editpage><svg class="icon gdoc_code"><use xlink:href="#gdoc_code"/></svg>
-<a href=https://github.com/eclipse-langium/langium-website/blob/main/hugo/content/docs/reference/document-lifecycle.md>
+<a href=https://github.com/mr-sagar-shelar/masale-website-website/blob/main/hugo/content/docs/reference/document-lifecycle.md>
 Edit this page
 </a>
 </span>
@@ -529,7 +529,7 @@ Computing Scopes
 </div><p>This phase is executed on documents with the state <code>IndexedContent</code> and is required to complete <strong>prior to</strong> resolving cross-references.</p>
 <p>Local scope computation consists of gathering all symbols contained in the AST, done by the <code>ScopeComputation</code> service (in addition to the indexing explained in the previous section). Metadata of the gathered symbols are represented with <code>AstNodeDescription</code> like in the <a class=gdoc-markdown__link href=#indexing-of-symbols>initial indexing phase</a>. These metadata are attached to the <code>LangiumDocument</code> in a multi-map structure that associates a (possibly empty) set of symbol descriptions to each container node of the AST, called the <em>precomputed scopes</em>. These are used in the linking phase to construct the actual <em>scope</em> of a cross-reference, i.e. all possible symbols that are reachable. A symbol in the precomputed scopes is reachable from a specific cross-reference if it is associated with a direct or indirect container of that reference. Symbols associated to the root node are reachable from the whole AST, while symbols associated with an inner node are reachable from the respective sub-tree.</p>
 <p>The default implementation of the <code>ScopeComputation</code> service attaches the description of every symbol to its direct container. This means that the container holds information about which named nodes are nested inside of it. You can override this default behavior to change the position where a symbol is reachable, or to change the name by which it can be referenced. It is even possible to associate the same symbol to multiple container nodes, possibly with different names, to control precisely where and how references to it can be resolved. However, keep in mind that you cannot access any cross-references in this phase. More complex, context-dependent scope mechanisms can be implemented in the <code>ScopeProvider</code> (see <a class=gdoc-markdown__link href=#linking>next section</a>).</p>
-<p>The <em>&ldquo;Domainmodel&rdquo;</em> example includes a <a class=gdoc-markdown__link href=https://github.com/eclipse-langium/langium/blob/main/examples/domainmodel/src/language-server/domain-model-scope.ts>customization of scopes precomputation</a> where every <em>entity</em> contained in a <em>package declaration</em> is exposed using its <em>qualified name</em>, that is the concatenation of the package name and entity name separated with <code>.</code> (similar to Java).</p>
+<p>The <em>&ldquo;Domainmodel&rdquo;</em> example includes a <a class=gdoc-markdown__link href=https://github.com/mr-sagar-shelar/masale-website/blob/main/examples/domainmodel/src/language-server/domain-model-scope.ts>customization of scopes precomputation</a> where every <em>entity</em> contained in a <em>package declaration</em> is exposed using its <em>qualified name</em>, that is the concatenation of the package name and entity name separated with <code>.</code> (similar to Java).</p>
 <p>In languages with a type system, you would typically implement computation of types in an additional pre-processing step in order to make type information available in the document. This additional step can be registered to run after scope computation with the <code>onBuildPhase</code> method of <code>DocumentBuilder</code>. How types are computed heavily depends on the kind of type system, so there is no default implementation for it.</p>
 <p>Once local scopes are computed and attached to the document, the document&rsquo;s state is set to <code>ComputedScopes</code>.</p>
 <pre class="gdoc-mermaid mermaid">
