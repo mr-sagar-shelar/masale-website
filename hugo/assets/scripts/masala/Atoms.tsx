@@ -8,6 +8,7 @@ import {
   useEdgesState,
   addEdge,
   Node,
+  Edge,
 } from "@xyflow/react";
 import { Entity } from "./masala-model-tools";
 
@@ -21,8 +22,6 @@ interface AtomsProps {
   entities?: Entity[];
 }
 
-interface AtomNode extends Node {}
-
 export default function Atoms(props: AtomsProps) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -32,18 +31,28 @@ export default function Atoms(props: AtomsProps) {
     (params) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
-
+  
   React.useEffect(() => {
-    const updatedNodes = entities.map((entity, index): Node => {
-      const newNode: AtomNode = {
-          id: `${index}`, position: { x: 0, y: index * 100 }, 
-          data: { label: entity.name  },
+    const entityEdges: Edge[] = [];
+    const updatedNodes: Node[] = entities.map((entity, index): Node => {
+      const newNode: Node = {
+        id: entity.name,
+        position: { x: 0, y: index * 100 },
+        data: { label: entity.name },
       };
-      return newNode as AtomNode;
+      if (entity.superType) {
+        entityEdges.push(
+          { id: `${entity.name}-${entity.superType.ref.name}`, source: entity.name, target: entity.superType.ref.name }
+        )
+      }
+      return newNode;
     });
-        setNodes(updatedNodes);
+    setNodes(updatedNodes);
+    setEdges(entityEdges);
     // console.error(` $$$$ ENtities = ${JSON.stringify(updatedNodes, null, 2)}`);
+    // console.error(` $$$$ Edges = ${JSON.stringify(entityEdges, null, 2)}`);
   }, [entities]);
+
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
