@@ -179,7 +179,7 @@ class App extends React.Component<{}, AppState> {
       ?.getEditor()
       ?.setValue(examples[index]);
   }
-  
+
 
   render() {
     const style = {
