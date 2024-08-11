@@ -13,13 +13,18 @@ import {
   applyNodeChanges,
 } from "@xyflow/react";
 import { Entity } from "./masala-model-tools";
+import Mobile from './devices/Mobile';
 
 let hashmap = new Map<string, Node>();
 let initialNodes = [
   { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
   { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
+  { id: "3", position: { x: 0, y: 100 }, data: { label: "2" }, type: 'mobileNode', },
 ];
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
+const nodeTypes = {
+  mobileNode: Mobile,
+};
 
 interface AtomsProps {
   entities?: Entity[];
@@ -58,31 +63,32 @@ export default function Atoms(props: AtomsProps) {
           position: existingNode.position,
         };
         hashmap.set(entity.name, newNodeWithPosition);
-        console.error(
-          ` $$$$ ${entity.name} position = ${JSON.stringify(
-            newNodeWithPosition.position,
-            null,
-            2
-          )}`
-        );
+        // console.error(
+        //   ` $$$$ ${entity.name} position = ${JSON.stringify(
+        //     newNodeWithPosition.position,
+        //     null,
+        //     2
+        //   )}`
+        // );
         return newNodeWithPosition;
       }
       hashmap.set(entity.name, newNode);
       return newNode;
     });
-    setNodes(updatedNodes);
+    // setNodes(updatedNodes);
     setEdges(entityEdges);
     // console.error(`$$$$ Entities Changed ${entities.length}`);
     // console.error(` $$$$ HashMap = ${JSON.stringify(hashmap, null, 2)}`);
     // console.error(` $$$$ ENtities = ${JSON.stringify(updatedNodes, null, 2)}`);
     // console.error(` $$$$ Edges = ${JSON.stringify(entityEdges, null, 2)}`);
   }, [entities]);
+  
 
   const onNodePositionChange: OnNodesChange = useCallback(
     (changes) => {
       const updatedNode = changes[0] as Node;
-      if (updatedNode.dragging == false) {
-        console.error(` $$$$ changes = ${JSON.stringify(updatedNode, null, 2)}`);
+      if (updatedNode.type && updatedNode.type == "position" && updatedNode.dragging == false) {
+        // console.error(` $$$$ changes = ${JSON.stringify(updatedNode, null, 2)}`);
         hashmap.set(updatedNode.id, updatedNode);
       }
       setNodes((nds) => applyNodeChanges(changes, nds))
@@ -99,6 +105,7 @@ export default function Atoms(props: AtomsProps) {
         // onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        nodeTypes={nodeTypes}
       >
         <Controls />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
