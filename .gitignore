@@ -2,3 +2,6 @@
 node_modules/
 .DS_Store
 .hugo_build.lock
+.parcel-cache
+/customLLM/dist/
+/customLLM/lib/

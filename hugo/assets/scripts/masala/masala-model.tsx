@@ -21,8 +21,16 @@ import {
   DocumentChangeResponse,
 } from "langium-ast-helper";
 import Atoms from "./Atoms";
-
 import D3Tree from "./d3tree";
+import { CreateWebWorkerMLCEngine, WebWorkerMLCEngine } from "@mlc-ai/web-llm";
+import * as webllm from "@mlc-ai/web-llm";
+
+
+const initProgressCallback = (initProgress) => {
+  console.error(` $$ Progress = ${initProgress}`);
+}
+const selectedModel = "mlc-ai/Qwen1.5-0.5B-Chat-q0f16-MLC";
+
 
 addMonacoStyles("monaco-styles-helper");
 
@@ -39,6 +47,7 @@ interface AppState {
   diagnostics?: Diagnostic[];
   uiIndex: number;
   exampleIndex: number;
+  mlEngine?: WebWorkerMLCEngine;
 }
 
 class App extends React.Component<{}, AppState> {
@@ -57,6 +66,7 @@ class App extends React.Component<{}, AppState> {
       diagnostics: undefined,
       uiIndex: 0,
       exampleIndex: 0,
+      mlEngine: undefined,
     };
   }
 
@@ -187,6 +197,7 @@ class App extends React.Component<{}, AppState> {
       width: "100%",
     };
 
+    
     return (
       <>
         <div className="justify-center self-center flex flex-col md:flex-row h-full w-full p-4">
@@ -226,6 +237,53 @@ class App extends React.Component<{}, AppState> {
                   Online Payment System (e.g., PayPal, Stripe)
                 </option>
               </select>
+              <button
+                onClick={async () => {
+                  const engine = await CreateWebWorkerMLCEngine(
+                    new Worker(
+                      new URL("/worker.js", import.meta.url), 
+                      {
+                        type: "module",
+                      }
+                    ),
+                    selectedModel,
+                    { initProgressCallback }, // engineConfig
+                  );
+                  console.error(` $$$$ Engine Ready:`);
+                  this.setState({
+                    mlEngine: engine
+                  });
+
+                  const request: webllm.ChatCompletionRequest = {
+                    messages: [
+                      {
+                        role: "system",
+                        content:
+                          "You are a helpful, respectful and honest assistant. " +
+                          "Be as happy as you can when speaking please. ",
+                      },
+                      { role: "user", content: "Provide me three US states." },
+                      { role: "assistant", content: "California, New York, Pennsylvania." },
+                      { role: "user", content: "Two more please!" },
+                    ],
+                    n: 3,
+                    temperature: 1.5,
+                    max_tokens: 256,
+                  };
+                
+                  console.error(` $$$$ Calling Chat API:`);
+                  const reply0 = await engine.chat.completions.create(request);
+
+                  console.error(` $$$$ Got Reply:`);
+                  console.log(reply0);
+                
+                  console.error(` $$$$ Got Usage:`);
+                  console.log(reply0.usage);
+                }}
+                className="text-white border-2 border-solid transition-shadow bg-emeraldLangiumABitDarker rounded-md p-4 text-center text-sm enabled:hover:shadow-opacity-50 enabled:hover:shadow-[0px_0px_15px_0px] enabled:hover:shadow-emeraldLangium disabled:border-gray-400 disabled:text-gray-400 disabled:bg-emeraldLangiumDarker "
+              >
+                Load Model
+              </button>
             </div>
             <div className="wrapper relative bg-white dark:bg-gray-900 border border-emeraldLangium h-[50vh] min-h-[300px]">
               <MonacoEditorReactComp

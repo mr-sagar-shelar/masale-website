@@ -84,6 +84,7 @@ export default function Atoms(props: AtomsProps) {
   }, [entities]);
   
 
+  
   const onNodePositionChange: OnNodesChange = useCallback(
     (changes) => {
       const updatedNode = changes[0] as Node;
