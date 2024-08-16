@@ -1,10 +1,9 @@
 import React, { memo } from "react";
-import { Handle, Position } from "@xyflow/react";
 
 export default memo(() => {
   return (
     <>
-      <div className="device device-macbook-pro">
+      <div className="device device-surface-pro-2017">
         <div className="device-frame">
           <img className="device-screen" src="/img/bg-10.jpg" />
         </div>
