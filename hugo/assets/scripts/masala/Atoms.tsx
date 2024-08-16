@@ -75,7 +75,7 @@ export default function Atoms(props: AtomsProps) {
       hashmap.set(entity.name, newNode);
       return newNode;
     });
-    // setNodes(updatedNodes);
+    setNodes(updatedNodes);
     setEdges(entityEdges);
     // console.error(`$$$$ Entities Changed ${entities.length}`);
     // console.error(` $$$$ HashMap = ${JSON.stringify(hashmap, null, 2)}`);

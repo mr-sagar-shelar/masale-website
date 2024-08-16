@@ -15,6 +15,7 @@ buildWorkerDefinition(
     false
 );
 
+
 let userConfig: UserConfig;
 
 interface AppState {

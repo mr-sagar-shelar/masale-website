@@ -240,6 +240,12 @@ entity Comment extends HasAuthor {
 `,
 `
 // Online Food Delivery Platform (e.g., DoorDash, UberEats)
+datatype string
+datatype int
+datatype float
+datatype timestamp
+datatype boolean
+
 entity User
 {
 userId: string
@@ -247,8 +253,8 @@ name: string
 email: string
 address: string
 phoneNumber: string
-paymentMethods: array of PaymentMethod
-orders: array of Order
+paymentMethods: PaymentMethod
+orders: Order
 }
 
 entity Restaurant
@@ -260,8 +266,8 @@ phoneNumber: string
 cuisine: string
 rating: float
 deliveryTime: int
-menu: array of MenuItem
-orders: array of Order
+menu: MenuItem
+orders: Order
 }
 
 entity MenuItem
@@ -280,7 +286,7 @@ entity Order
 orderId: string
 user: User
 restaurant: Restaurant
-items: array of OrderItem
+items: OrderItem
 total: float
 status: string // pending, accepted, preparing, out_for_delivery, delivered, cancelled
 createdAt: timestamp
@@ -304,7 +310,7 @@ deliveryPersonId: string
 name: string
 phoneNumber: string
 location: string
-orders: array of Order
+orders: Order
 }
 
 entity PaymentMethod
@@ -329,6 +335,12 @@ terms: string
 `,
 `
 // Social Media Platform (e.g., Facebook, Instagram)
+datatype String
+datatype DateTime
+datatype float
+datatype timestamp
+datatype UUID
+
 entity User
 {
   user_id: UUID
@@ -394,6 +406,12 @@ entity Notification
 `,
 `
 // Video Streaming Service (e.g., Netflix, Hulu)
+datatype string
+datatype int
+datatype float
+datatype timestamp
+datatype UUID
+
 entity User
 {
 userId: string
@@ -401,9 +419,9 @@ name: string
 email: string
 password: string
 subscription: Subscription
-watchHistory: array of Video
-favorites: array of Video
-playlists: array of Playlist
+watchHistory: Video
+favorites: Video
+playlists: Playlist
 }
 
 entity Video
@@ -414,16 +432,16 @@ description: string
 genre: string
 releaseDate: timestamp
 duration: int
-cast: array of string
+cast: string
 director: string
 producer: string
 studio: string
 language: string
-subtitles: array of string
+subtitles: string
 thumbnail: string
 views: int
 ratings: float
-episodes: array of Episode // for series
+episodes: Episode // for series
 }
 
 entity Episode
@@ -453,7 +471,7 @@ playlistId: string
 name: string
 description: string
 owner: User
-videos: array of Video
+videos: Video
 }
 
 entity Genre
@@ -469,8 +487,8 @@ actorId: string
 name: string
 bio: string
 image: string
-movies: array of Video
-tvShows: array of Video
+movies: Video
+tvShows: Video
 }
 
 entity Director
@@ -479,7 +497,7 @@ directorId: string
 name: string
 bio: string
 image: string
-movies: array of Video
+movies: Video
 }
 
 entity Producer
@@ -488,7 +506,7 @@ producerId: string
 name: string
 bio: string
 image: string
-movies: array of Video
+movies: Video
 }
 
 entity Studio
@@ -497,8 +515,8 @@ studioId: string
 name: string
 description: string
 logo: string
-movies: array of Video
-tvShows: array of Video
+movies: Video
+tvShows: Video
 }
 
 entity Rating
@@ -517,11 +535,17 @@ video: Video
 text: string
 timestamp: timestamp
 likes: int
-replies: array of Comment
+replies: Comment
 }
 `,
 `
 // E-commerce Platform (e.g., Amazon, eBay)
+datatype String
+datatype Integer
+datatype Float
+datatype DateTime
+datatype UUID
+
 entity User
 {
   user_id: UUID
@@ -596,6 +620,12 @@ entity ProductCategory
 `,
 `
 // Cloud Storage Service (e.g., Google Drive, Dropbox)
+datatype String
+datatype Integer
+datatype Float
+datatype DateTime
+datatype UUID
+
 entity User
 {
   user_id: UUID
@@ -652,6 +682,12 @@ entity Subscription
 `,
 `
 // Real-Time Chat Application (e.g., WhatsApp, Slack)
+datatype string
+datatype int
+datatype float
+datatype timestamp
+datatype UUID
+
 entity User
 {
 userId: string
@@ -666,8 +702,8 @@ entity Chat
 chatId: string
 name: string
 type: string // group, private
-participants: array of User
-messages: array of Message
+participants: User
+messages: Message
 creationTime: timestamp
 }
 
@@ -678,7 +714,7 @@ sender: User
 text: string
 timestamp: timestamp
 type: string // text, image, video, file, etc.
-reactions: array of Reaction
+reactions: Reaction
 }
 
 entity Reaction
@@ -694,8 +730,8 @@ groupId: string
 name: string
 description: string
 admin: User
-members: array of User
-chats: array of Chat
+members: User
+chats: Chat
 }
 
 entity File
@@ -756,6 +792,12 @@ user: User
 `,
 `
 // Job Search Platform (e.g., LinkedIn, Indeed)
+datatype string
+datatype int
+datatype float
+datatype timestamp
+datatype UUID
+
 entity User
 {
 userId: string
@@ -764,16 +806,16 @@ email: string
 password: string
 location: string
 industry: string
-skills: array of string
-experience: array of JobExperience
-education: array of Education
+skills: string
+experience: JobExperience
+education: Education
 profilePicture: string
 resume: string
-jobAlerts: array of Job
-savedJobs: array of Job
-appliedJobs: array of JobApplication
-connections: array of User
-endorsements: array of Endorsement
+jobAlerts: Job
+savedJobs: Job
+appliedJobs: JobApplication
+connections: User
+endorsements: Endorsement
 }
 
 entity Job
@@ -789,7 +831,7 @@ type: string // full-time, part-time, contract, etc.
 category: string
 postedDate: timestamp
 expiryDate: timestamp
-applications: array of JobApplication
+applications: JobApplication
 }
 
 entity Company
@@ -802,7 +844,7 @@ location: string
 description: string
 website: string
 logo: string
-jobs: array of Job
+jobs: Job
 }
 
 entity JobApplication
@@ -853,6 +895,12 @@ endorsee: User
 `,
 `
 // Online Learning Platform (e.g., Coursera, Udemy)
+datatype string
+datatype int
+datatype float
+datatype timestamp
+datatype boolean
+
 entity User
 {
 userId: string
@@ -860,11 +908,11 @@ name: string
 email: string
 password: string
 location: string
-interests: array of string
-enrollments: array of CourseEnrollment
-purchasedCourses: array of Course
-learningHistory: array of CourseProgress
-certificates: array of Certificate
+interests: string
+enrollments: CourseEnrollment
+purchasedCourses: Course
+learningHistory: Course
+certificates: Certificate
 }
 
 entity Course
@@ -878,10 +926,10 @@ level: string // beginner, intermediate, advanced
 price: float
 duration: int // in hours
 ratings: float
-reviews: array of Review
-enrollments: array of CourseEnrollment
-contents: array of CourseContent
-prerequisites: array of Course
+reviews: Review
+enrollments: CourseEnrollment
+contents: CourseContent
+prerequisites: Course
 }
 
 entity CourseContent
@@ -926,10 +974,10 @@ entity Instructor
 {
 instructorId: string
 user: User
-courses: array of Course
-students: array of User
+courses: Course
+students: User
 ratings: float
-reviews: array of Review
+reviews: Review
 }
 
 entity Payment
@@ -953,6 +1001,12 @@ read: boolean
 `,
 `
 // Online Payment System (e.g., PayPal, Stripe)
+datatype string
+datatype int
+datatype float
+datatype timestamp
+datatype boolean
+
 entity User
 {
 userId: string
@@ -960,8 +1014,8 @@ name: string
 email: string
 address: string
 phoneNumber: string
-paymentMethods: array of PaymentMethod
-transactions: array of Transaction
+paymentMethods: PaymentMethod
+transactions: Transaction
 }
 
 entity PaymentMethod
