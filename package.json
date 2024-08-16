@@ -25,10 +25,14 @@
     "core",
     "hugo",
     "tailwind",
-    "customLLM"
+    "customLLM",
+    "masala-ui"
   ],
   "volta": {
     "node": "18.18.1",
     "npm": "9.9.0"
+  },
+  "dependencies": {
+    "masala-ui": "^1.0.0"
   }
 }
