@@ -63,13 +63,6 @@ export default function Atoms(props: AtomsProps) {
           position: existingNode.position,
         };
         hashmap.set(entity.name, newNodeWithPosition);
-        // console.error(
-        //   ` $$$$ ${entity.name} position = ${JSON.stringify(
-        //     newNodeWithPosition.position,
-        //     null,
-        //     2
-        //   )}`
-        // );
         return newNodeWithPosition;
       }
       hashmap.set(entity.name, newNode);

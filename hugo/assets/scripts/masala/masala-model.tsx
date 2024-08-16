@@ -22,15 +22,14 @@ import {
 } from "langium-ast-helper";
 import Atoms from "./Atoms";
 import D3Tree from "./d3tree";
+import Errors from "./Errors";
 import { CreateWebWorkerMLCEngine, WebWorkerMLCEngine } from "@mlc-ai/web-llm";
 import * as webllm from "@mlc-ai/web-llm";
 
-
 const initProgressCallback = (initProgress) => {
   console.error(` $$ Progress = ${initProgress}`);
-}
+};
 const selectedModel = "mlc-ai/Qwen1.5-0.5B-Chat-q0f16-MLC";
-
 
 addMonacoStyles("monaco-styles-helper");
 
@@ -102,79 +101,37 @@ class App extends React.Component<{}, AppState> {
   onDocumentChange(resp: DocumentChangeResponse) {
     // get the AST from the response and deserialize it
     const ast = deserializeAST(resp.content) as DomainModelAstNode;
-    
+
     this.setState({
       ast: ast,
       diagnostics: resp.diagnostics,
     });
   }
 
-  renderAST(ast: DomainModelAstNode): JSX.Element {
+  renderPreview(ast: DomainModelAstNode): JSX.Element {
     if (!ast) {
       return <div>No AST available.</div>;
     }
 
-    // if there are no errors, render the tree
     if (
       this.state.diagnostics == null ||
       this.state.diagnostics.filter((i) => i.severity === 1).length == 0
     ) {
-      return <D3Tree data={getMainTreeNode(ast)} />;
+
+      if (this.state.uiIndex == 0) {
+        return <D3Tree data={getMainTreeNode(ast)} />;
+      }
+
+      if (this.state.uiIndex == 1) {
+        const entities = getDomainModelAst(ast as DomainModelAstNode).entities;
+        return <Atoms entities={entities} />;
+      }
+
+      return <div>Please select correct option.</div>;
     }
 
-    // otherwise, render the errors
     return (
-      <div className="flex flex-col h-full w-full p-4 justify-start items-center my-10">
-        <div className="text-white border-2 border-solid border-accentRed rounded-md p-4 text-left text-sm cursor-default">
-          {this.state.diagnostics
-            .filter((i) => i.severity === 1)
-            .map((diagnostic, index) => (
-              <details key={index}>
-                <summary>{`Line ${diagnostic.range.start.line + 1}-${
-                  diagnostic.range.end.line + 1
-                }: ${diagnostic.message}`}</summary>
-                <p>
-                  Source: {diagnostic.source} | Code: {diagnostic.code}
-                </p>
-              </details>
-            ))}
-        </div>
-      </div>
-    );
-  }
-
-  renderAtom(ast: DomainModelAstNode): JSX.Element {
-    if (!ast) {
-      return <div>No AST available.</div>;
-    }
-
-    // if there are no errors, render the tree
-    if (
-      this.state.diagnostics == null ||
-      this.state.diagnostics.filter((i) => i.severity === 1).length == 0
-    ) {
-      const entities = getDomainModelAst(ast as DomainModelAstNode).entities;
-      return <Atoms entities={entities} />;
-    }
-
-    // otherwise, render the errors
-    return (
-      <div className="flex flex-col h-full w-full p-4 justify-start items-center my-10">
-        <div className="text-white border-2 border-solid border-accentRed rounded-md p-4 text-left text-sm cursor-default">
-          {this.state.diagnostics
-            .filter((i) => i.severity === 1)
-            .map((diagnostic, index) => (
-              <details key={index}>
-                <summary>{`Line ${diagnostic.range.start.line + 1}-${
-                  diagnostic.range.end.line + 1
-                }: ${diagnostic.message}`}</summary>
-                <p>
-                  Source: {diagnostic.source} | Code: {diagnostic.code}
-                </p>
-              </details>
-            ))}
-        </div>
-      </div>
+      <Errors diagnostics={this.state.diagnostics} />
     );
   }
 
@@ -190,14 +147,12 @@ class App extends React.Component<{}, AppState> {
       ?.setValue(examples[index]);
   }
 
-
   render() {
     const style = {
       height: "100%",
       width: "100%",
     };
 
-    
     return (
       <>
         <div className="justify-center self-center flex flex-col md:flex-row h-full w-full p-4">
@@ -240,18 +195,15 @@ class App extends React.Component<{}, AppState> {
               <button
                 onClick={async () => {
                   const engine = await CreateWebWorkerMLCEngine(
-                    new Worker(
-                      new URL("/worker.js", import.meta.url), 
-                      {
-                        type: "module",
-                      }
-                    ),
+                    new Worker(new URL("/worker.js", import.meta.url), {
+                      type: "module",
+                    }),
                     selectedModel,
-                    { initProgressCallback }, // engineConfig
+                    { initProgressCallback } // engineConfig
                   );
                   console.error(` $$$$ Engine Ready:`);
                   this.setState({
-                    mlEngine: engine
+                    mlEngine: engine,
                   });
 
                   const request: webllm.ChatCompletionRequest = {
@@ -263,20 +215,23 @@ class App extends React.Component<{}, AppState> {
                           "Be as happy as you can when speaking please. ",
                       },
                       { role: "user", content: "Provide me three US states." },
-                      { role: "assistant", content: "California, New York, Pennsylvania." },
+                      {
+                        role: "assistant",
+                        content: "California, New York, Pennsylvania.",
+                      },
                       { role: "user", content: "Two more please!" },
                     ],
                     n: 3,
                     temperature: 1.5,
                     max_tokens: 256,
                   };
-                
+
                   console.error(` $$$$ Calling Chat API:`);
                   const reply0 = await engine.chat.completions.create(request);
 
                   console.error(` $$$$ Got Reply:`);
                   console.log(reply0);
-                
+
                   console.error(` $$$$ Got Usage:`);
                   console.log(reply0.usage);
                 }}
@@ -331,11 +286,7 @@ class App extends React.Component<{}, AppState> {
             </div>
             <div className="border border-emeraldLangium h-full w-full">
               {this.state.ast &&
-                this.state.uiIndex == 0 &&
-                this.renderAST(this.state.ast)}
-              {this.state.ast &&
-                this.state.uiIndex != 0 &&
-                this.renderAtom(this.state.ast)}
+                this.renderPreview(this.state.ast)}
             </div>
           </div>
         </div>
