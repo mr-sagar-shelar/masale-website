@@ -49,7 +49,7 @@ enableRobotsTXT = true
   # It can be either a remote url or a local file path relative to your content directory.
   # geekdocPrivacyPolicy = "https://www.typefox.io/imprint-privacy/#privacy"
 
-  geekdocRepo = "https://github.com/mr-sagar-shelar/masale-website-website"
+  geekdocRepo = "https://github.com/mr-sagar-shelar/masale-website"
   geekdocEditPath = "blob/main/hugo/content"
 
   # (Optional, default true) Add an anchor link to headlines.

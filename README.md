@@ -1,6 +1,6 @@
-# Masale documentation
+# Masala documentation
 
-This repository contains the assets required to build the Masale website and documentation.
+This repository contains the assets required to build the Masala website and documentation.
 
 Our setup uses TailwindCSS to build the styles which are then copied into the Hugo installation, from which our website is finally built.
 
