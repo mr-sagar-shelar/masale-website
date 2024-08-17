@@ -1,2 +1,2 @@
 export * from "./components/Errors";
-export * from "./previews/UserStoriesMindMapPreview";
+export * from "./previews";

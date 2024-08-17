@@ -21,7 +21,17 @@ import {
   DocumentChangeResponse,
 } from "langium-ast-helper";
 import Atoms from "./Atoms";
-import { Errors, UserStoriesMindMapPreview } from "masala-ui";
+import {
+  Errors,
+  UserStoriesMindMapPreview,
+  ReactNativePreview,
+  ClassDiagramPreview,
+  AtomsPreview,
+  MoleculesPreview,
+  TemplatesPreview,
+  PagesPreview,
+  WebPreview,
+} from "masala-ui";
 import { CreateWebWorkerMLCEngine, WebWorkerMLCEngine } from "@mlc-ai/web-llm";
 import * as webllm from "@mlc-ai/web-llm";
 
@@ -120,12 +130,40 @@ class App extends React.Component<{}, AppState> {
         return <UserStoriesMindMapPreview data={getMainTreeNode(ast)} />;
       }
 
+      if (this.state.uiIndex == 3) {
+        return <ClassDiagramPreview />;
+      }
+
+      if (this.state.uiIndex == 5) {
+        return <AtomsPreview />;
+      }
+
+      if (this.state.uiIndex == 6) {
+        return <MoleculesPreview />;
+      }
+
+      if (this.state.uiIndex == 7) {
+        return <TemplatesPreview />;
+      }
+
+      if (this.state.uiIndex == 8) {
+        return <PagesPreview />;
+      }
+
+      if (this.state.uiIndex == 9) {
+        return <WebPreview />;
+      }
+
+      if (this.state.uiIndex == 10) {
+        return <ReactNativePreview />;
+      }
+
       if (this.state.uiIndex == 1) {
         const entities = getDomainModelAst(ast as DomainModelAstNode).entities;
         return <Atoms entities={entities} />;
       }
 
-      return <div>Please select correct option.</div>;
+      return <div className="tex-white">Please select correct option.</div>;
     }
 
     return <Errors diagnostics={this.state.diagnostics} />;
@@ -262,7 +300,7 @@ class App extends React.Component<{}, AppState> {
                 <option value="7">Templates</option>
                 <option value="8">Pages</option>
                 <option value="9">Web</option>
-                <option value="10">Mobile</option>
+                <option value="10">React Native</option>
               </select>
               <button
                 onClick={() => {
