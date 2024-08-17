@@ -26,13 +26,15 @@
     "hugo",
     "tailwind",
     "customLLM",
-    "masala-ui"
+    "masala-ui",
+    "masala-language"
   ],
   "volta": {
     "node": "18.18.1",
     "npm": "9.9.0"
   },
   "dependencies": {
+    "masala-language": "^1.0.0",
     "masala-ui": "^1.0.0"
   }
 }

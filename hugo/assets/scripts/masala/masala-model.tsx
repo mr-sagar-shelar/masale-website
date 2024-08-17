@@ -21,8 +21,7 @@ import {
   DocumentChangeResponse,
 } from "langium-ast-helper";
 import Atoms from "./Atoms";
-import D3Tree from "./d3tree";
-import { Errors } from "masala-ui";
+import { Errors, UserStoriesMindMapPreview } from "masala-ui";
 import { CreateWebWorkerMLCEngine, WebWorkerMLCEngine } from "@mlc-ai/web-llm";
 import * as webllm from "@mlc-ai/web-llm";
 
@@ -118,7 +117,7 @@ class App extends React.Component<{}, AppState> {
       this.state.diagnostics.filter((i) => i.severity === 1).length == 0
     ) {
       if (this.state.uiIndex == 0) {
-        return <D3Tree data={getMainTreeNode(ast)} />;
+        return <UserStoriesMindMapPreview data={getMainTreeNode(ast)} />;
       }
 
       if (this.state.uiIndex == 1) {
