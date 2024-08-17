@@ -2,20 +2,17 @@
   "name": "masala-ui",
   "version": "1.0.0",
   "description": "Masala UI components",
-  "main": "dist/index.js",
-  "devDependencies": {},
+  "main": "src/index.js",
+  "files": [
+    "src/**/*"
+  ],
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.7"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src --out-dir dist"
   },
-  "dependencies": {
-    "@babel/cli": "^7.24.8",
-    "@babel/core": "^7.24.8",
-    "@babel/preset-env": "^7.24.8",
-    "@babel/preset-react": "^7.24.7",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "author": "",
-  "license": "ISC"
+  "author": "Sagar Shelar",
+  "license": "MIT"
 }

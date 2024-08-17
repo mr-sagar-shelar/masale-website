@@ -22,7 +22,7 @@ import {
 } from "langium-ast-helper";
 import Atoms from "./Atoms";
 import D3Tree from "./d3tree";
-import Errors from "./Errors";
+import { Errors } from "masala-ui";
 import { CreateWebWorkerMLCEngine, WebWorkerMLCEngine } from "@mlc-ai/web-llm";
 import * as webllm from "@mlc-ai/web-llm";
 
@@ -117,7 +117,6 @@ class App extends React.Component<{}, AppState> {
       this.state.diagnostics == null ||
       this.state.diagnostics.filter((i) => i.severity === 1).length == 0
     ) {
-
       if (this.state.uiIndex == 0) {
         return <D3Tree data={getMainTreeNode(ast)} />;
       }
@@ -130,9 +129,7 @@ class App extends React.Component<{}, AppState> {
       return <div>Please select correct option.</div>;
     }
 
-    return (
-      <Errors diagnostics={this.state.diagnostics} />
-    );
+    return <Errors diagnostics={this.state.diagnostics} />;
   }
 
   setUiIndex(index: number) {
@@ -285,8 +282,7 @@ class App extends React.Component<{}, AppState> {
               </button>
             </div>
             <div className="border border-emeraldLangium h-full w-full">
-              {this.state.ast &&
-                this.renderPreview(this.state.ast)}
+              {this.state.ast && this.renderPreview(this.state.ast)}
             </div>
           </div>
         </div>

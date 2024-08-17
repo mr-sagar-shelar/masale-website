@@ -2,11 +2,11 @@ import React from "react";
 import { Diagnostic } from "langium-ast-helper";
 
 interface DiagnosticProps {
-  diagnostics: Diagnostic[]
+  diagnostics: Diagnostic[];
 }
 
-export default function Errors(props: DiagnosticProps) {
-  const { diagnostics } = props
+export const Errors = (props: DiagnosticProps) => {
+  const { diagnostics } = props;
   return (
     <div className="flex flex-col h-full w-full p-4 justify-start items-center my-10">
       <div className="text-white border-2 border-solid border-accentRed rounded-md p-4 text-left text-sm cursor-default">
@@ -25,4 +25,4 @@ export default function Errors(props: DiagnosticProps) {
       </div>
     </div>
   );
-}
+};
