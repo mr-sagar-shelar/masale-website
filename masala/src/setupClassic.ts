@@ -9,7 +9,12 @@ export const setupConfigClassic = (): UserConfig => {
             editorAppConfig: {
                 $type: 'classic',
                 languageId: 'masala',
-                code: `// Masala is running in the web!`,
+                code: `// Masala is running in the web!
+person Sagar
+
+
+Hello Sagar!
+Hello Sagar!`,
                 useDiffEditor: false,
                 languageExtensionConfig: { id: 'langium' },
                 languageDef: monarchSyntax,
