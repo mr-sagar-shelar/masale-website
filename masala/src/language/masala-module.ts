@@ -2,6 +2,7 @@ import { type Module, inject } from 'langium';
 import { createDefaultModule, createDefaultSharedModule, type DefaultSharedModuleContext, type LangiumServices, type LangiumSharedServices, type PartialLangiumServices } from 'langium/lsp';
 import { MasalaGeneratedModule, MasalaGeneratedSharedModule } from './generated/module.js';
 import { MasalaValidator, registerValidationChecks } from './masala-validator.js';
+import { MasalaFormatter } from './masala-formatter.js';
 
 /**
  * Declaration of custom services - add your own service classes here.
@@ -26,6 +27,9 @@ export type MasalaServices = LangiumServices & MasalaAddedServices
 export const MasalaModule: Module<MasalaServices, PartialLangiumServices & MasalaAddedServices> = {
     validation: {
         MasalaValidator: () => new MasalaValidator()
+    },
+    lsp: {
+        Formatter: () => new MasalaFormatter(),
     }
 };
 

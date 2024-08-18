@@ -2,7 +2,7 @@ grammar Masala
 
 entry Model:
     (persons+=Person | greetings+=Greeting | entities+=Entity | elements+=AbstractElement | atoms+=Atom | molecules+=Molecule | organisms+=Organism
-    | pages+=Page)*;
+    | pages+=Page | applicationConfigs+=ApplicationConfig)*;
 
 AbstractElement:
      Type;
@@ -49,8 +49,18 @@ QualifiedName returns string:
 DataType:
     'datatype' name=ID;
 
+ApplicationConfig:
+    'appConfig' name=STRING '{'
+        ('baseName' ':' name=STRING)+
+        ('applicationType' ':' name=STRING)+
+        ('authenticationType' ':' name=STRING)+
+        ('databaseType' ':' name=STRING)+
+        ('clientFramework' ':' name=STRING)+
+    '}';
+
 hidden terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
 
 hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;
+terminal STRING: /"(\\.|[^"\\])*"|'(\\.|[^'\\])*'/;
