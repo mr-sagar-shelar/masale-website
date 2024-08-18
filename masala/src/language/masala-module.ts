@@ -3,6 +3,7 @@ import { createDefaultModule, createDefaultSharedModule, type DefaultSharedModul
 import { MasalaGeneratedModule, MasalaGeneratedSharedModule } from './generated/module.js';
 import { MasalaValidator, registerValidationChecks } from './masala-validator.js';
 import { MasalaFormatter } from './masala-formatter.js';
+import { MasalaHoverProvider } from './masala-hover-provider.js';
 
 /**
  * Declaration of custom services - add your own service classes here.
@@ -30,6 +31,7 @@ export const MasalaModule: Module<MasalaServices, PartialLangiumServices & Masal
     },
     lsp: {
         Formatter: () => new MasalaFormatter(),
+        HoverProvider: (services) => new MasalaHoverProvider(services)
     }
 };
 
