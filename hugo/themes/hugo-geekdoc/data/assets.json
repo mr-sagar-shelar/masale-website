@@ -14,5 +14,6 @@
   "katex.min.css": "katex-fd1ecc245b.min.css",
   "main.min.css": "main-61795ecfac.min.css",
   "mobile.min.css": "mobile-e214817c8f.min.css",
-  "print.min.css": "print-f79fc3e5d7.min.css"
+  "print.min.css": "print-f79fc3e5d7.min.css",
+  "visualizer.css": "visualizer.css"
 }
