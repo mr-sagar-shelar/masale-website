@@ -1,7 +1,7 @@
 grammar Masala
 
 entry Model:
-    (persons+=Person | greetings+=Greeting | entities+=Entity | elements+=AbstractElement)*;
+    (persons+=Person | greetings+=Greeting | entities+=Entity | elements+=AbstractElement | atoms+=Atom | molecules+=Molecule)*;
 
 AbstractElement:
      Type;
@@ -22,6 +22,15 @@ Entity:
 
 Feature:
     (many?='many')? name=ID ':' type=[Type:QualifiedName] isRequired?='required'?;
+
+
+Atom:
+    'atom' name=ID;
+
+Molecule:
+    'molecule' name=ID '{'
+        (atom=[Atom:ID])+
+    '}';
 
 QualifiedName returns string:
     ID ('.' ID)*;

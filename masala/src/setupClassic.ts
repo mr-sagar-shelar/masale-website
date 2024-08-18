@@ -24,6 +24,14 @@ entity User {
 entity User {
    firstName: String
 }
+
+atom firstName
+atom lastName
+
+molecule UserM {
+   firstName
+   lastName
+}
 `,
                 useDiffEditor: false,
                 languageExtensionConfig: { id: 'langium' },
