@@ -1,7 +1,8 @@
 grammar Masala
 
 entry Model:
-    (persons+=Person | greetings+=Greeting | entities+=Entity | elements+=AbstractElement | atoms+=Atom | molecules+=Molecule)*;
+    (persons+=Person | greetings+=Greeting | entities+=Entity | elements+=AbstractElement | atoms+=Atom | molecules+=Molecule | organisms+=Organism
+    | pages+=Page)*;
 
 AbstractElement:
      Type;
@@ -32,6 +33,16 @@ Molecule:
         (atom=[Atom:ID])+
     '}';
 
+Organism:
+    'organism' name=ID '{'
+        (atom=[Molecule:ID])+
+    '}';
+
+Page:
+    'page' name=ID '{'
+        (atom=[Organism:ID])+
+    '}';
+
 QualifiedName returns string:
     ID ('.' ID)*;
 
@@ -40,8 +51,6 @@ DataType:
 
 hidden terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
-terminal INT returns number: /[0-9]+/;
-terminal STRING: /"(\\.|[^"\\])*"|'(\\.|[^'\\])*'/;
 
 hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;

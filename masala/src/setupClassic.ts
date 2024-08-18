@@ -32,6 +32,14 @@ molecule UserM {
    firstName
    lastName
 }
+
+organism UserO {
+   UserM
+}
+
+page UserP {
+   UserO
+}
 `,
                 useDiffEditor: false,
                 languageExtensionConfig: { id: 'langium' },
