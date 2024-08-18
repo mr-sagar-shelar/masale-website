@@ -1,0 +1,15 @@
+{
+    "projectName": "Masala",
+    "languages": [{
+        "id": "masala",
+        "grammar": "src/language/masala.langium",
+        "fileExtensions": [".masala"],
+        "textMate": {
+            "out": "syntaxes/masala.tmLanguage.json"
+        },
+        "monarch": {
+            "out": "src/syntaxes/masala.monarch.ts"
+        }
+    }],
+    "out": "src/language/generated"
+}
