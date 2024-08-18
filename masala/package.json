@@ -21,7 +21,8 @@
         "dev": "vite",
         "dev:debug": "vite --debug --force",
         "serve": "npm run dev",
-        "test": "vitest run"
+        "test": "vitest run",
+        "build:worker": "esbuild --minify ./out/language/main-browser.js --bundle --format=iife --outfile=./public/masala-server-worker.js"
     },
     "dependencies": {
         "langium": "~3.1.0",

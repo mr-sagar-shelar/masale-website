@@ -16,6 +16,7 @@
   "author": "Sagar Shelar",
   "license": "MIT",
   "dependencies": {
+    "masala": "^0.0.1",
     "masala-language": "^1.0.0"
   }
 }

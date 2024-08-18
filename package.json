@@ -27,7 +27,8 @@
     "tailwind",
     "customLLM",
     "masala-ui",
-    "masala-language"
+    "masala-language",
+    "masala"
   ],
   "volta": {
     "node": "18.18.1",
