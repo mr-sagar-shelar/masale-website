@@ -10,11 +10,21 @@ export const setupConfigClassic = (): UserConfig => {
                 $type: 'classic',
                 languageId: 'masala',
                 code: `// Masala is running in the web!
+datatype String
 person Sagar
 
 
 Hello Sagar!
-Hello Sagar!`,
+Hello Sagar!
+
+entity User {
+   firstName: String
+}
+
+entity User {
+   firstName: String
+}
+`,
                 useDiffEditor: false,
                 languageExtensionConfig: { id: 'langium' },
                 languageDef: monarchSyntax,

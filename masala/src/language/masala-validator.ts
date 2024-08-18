@@ -10,7 +10,7 @@ export function registerValidationChecks(services: MasalaServices) {
     const validator = services.validation.MasalaValidator;
     const checks: ValidationChecks<MasalaAstType> = {
         Person: validator.checkPersonStartsWithCapital,
-        Model: validator.checkPersonAreGreetedAtMostOnce
+        Model: validator.checkPersonAreGreetedAtMostOnce,
     };
     registry.register(checks, validator);
 }
@@ -48,6 +48,28 @@ export class MasalaValidator {
                         node: g
                     });
                 }
+            }
+        });
+
+        this.checkEntityNameUnique(model, accept);
+    }
+
+    checkEntityNameUnique(model: Model, accept: ValidationAcceptor): void {
+        //create a multi-counter variable using a map
+        const counts = new Map<string, number>();
+        //initialize the counter for each person to zero
+        model.entities.forEach(p => counts.set(p.name, 0));
+        //iterate over all greetings and count the number of greetings for each person
+        model.entities.forEach(entity => {
+            //Attention! if the linker was unsucessful, entity is undefined
+                //set the new value of the counter
+            const newValue = counts.get(entity.name)!+1;
+            counts.set(entity.name, newValue);
+            //if the counter is greater than 1, create a helpful error
+            if(newValue > 1) {
+                accept('error', `You can define entity at most once! This is the ${newValue}${newValue==2?'nd':'th'} greeting to ${entity.name}.`, {
+                    node: entity
+                });
             }
         });
     }

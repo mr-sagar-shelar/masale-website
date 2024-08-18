@@ -1,13 +1,33 @@
 grammar Masala
 
 entry Model:
-    (persons+=Person | greetings+=Greeting)*;
+    (persons+=Person | greetings+=Greeting | entities+=Entity | elements+=AbstractElement)*;
+
+AbstractElement:
+     Type;
+
+Type:
+    DataType;
 
 Person:
     'person' name=ID;
 
 Greeting:
     'Hello' person=[Person:ID] '!';
+
+Entity:
+    'entity' name=ID ('extends' superType=[Entity:QualifiedName])? '{'
+        (features+=Feature)+
+    '}';
+
+Feature:
+    (many?='many')? name=ID ':' type=[Type:QualifiedName] isRequired?='required'?;
+
+QualifiedName returns string:
+    ID ('.' ID)*;
+
+DataType:
+    'datatype' name=ID;
 
 hidden terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
