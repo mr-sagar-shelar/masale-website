@@ -9,7 +9,8 @@ export const setupConfigClassic = (): UserConfig => {
             editorAppConfig: {
                 $type: 'classic',
                 languageId: 'masala',
-                code: `// Masala is running in the web!
+                code: `
+// Masala is running in the web!
 datatype String
 person Sagar
 
@@ -39,6 +40,21 @@ organism UserO {
 
 page UserP {
    UserO
+}
+
+appConfig MicroService1 {
+   baseName: ""
+   applicationType: gateway
+   authenticationType: jwt
+   databaseType: cassandra
+   clientFramework: react
+   entities: User 
+}
+
+enum Country {
+  BELGIUM (belgium)
+  FRANCE (france)
+  ITALY (italy)
 }
 `,
                 useDiffEditor: false,

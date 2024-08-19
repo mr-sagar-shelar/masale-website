@@ -2,10 +2,10 @@ grammar Masala
 
 entry Model:
     (persons+=Person | greetings+=Greeting | entities+=Entity | elements+=AbstractElement | atoms+=Atom | molecules+=Molecule | organisms+=Organism
-    | pages+=Page | applicationConfigs+=ApplicationConfig)*;
+    | pages+=Page | applicationConfigs+=ApplicationConfig | enums+=Enum)*;
 
 AbstractElement:
-     Type;
+    Type;
 
 Type:
     DataType;
@@ -50,13 +50,22 @@ DataType:
     'datatype' name=ID;
 
 ApplicationConfig:
-    'appConfig' name=STRING '{'
-        ('baseName' ':' name=STRING)+
-        ('applicationType' ':' name=STRING)+
-        ('authenticationType' ':' name=STRING)+
-        ('databaseType' ':' name=STRING)+
-        ('clientFramework' ':' name=STRING)+
+    'appConfig' name=ID '{'
+        ('baseName' ':' baseName=STRING)
+        ('applicationType' ':' applicationType=ApplicationType)
+        ('authenticationType' ':' authenticationType=AuthenticationType)
+        ('databaseType' ':' databaseType=DatabaseType)
+        ('clientFramework' ':' clientFramework=ClientFramework)
+        ('entities' ':' entities+=[Entity:ID])+
     '}';
+
+Enum:
+    'enum' name=ID '{'
+        (values+=EnumRow)+
+    '}';
+
+EnumRow:
+    name=ID ('(' value=ID ')')?;
 
 hidden terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
@@ -64,3 +73,20 @@ terminal ID: /[_a-zA-Z][\w_]*/;
 hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;
 terminal STRING: /"(\\.|[^"\\])*"|'(\\.|[^'\\])*'/;
+
+
+AuthenticationType returns string:
+     'jwt' | 'session' | 'oauth2'
+;
+
+ApplicationType returns string:
+     'monolith' | 'microservice' | 'gateway'
+;
+
+ClientFramework returns string:
+     'anular' | 'react' | 'vue' | 'svelte' | 'no'
+;
+
+DatabaseType returns string:
+     'mysql' | 'mongodb' | 'cassandra' | 'couchbase' | 'no'
+;
