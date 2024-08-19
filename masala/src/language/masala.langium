@@ -2,7 +2,7 @@ grammar Masala
 
 entry Model:
     (persons+=Person | greetings+=Greeting | entities+=Entity | elements+=AbstractElement | atoms+=Atom | molecules+=Molecule | organisms+=Organism
-    | pages+=Page | applicationConfigs+=ApplicationConfig | enums+=Enum | paginations+=Pagination)*;
+    | pages+=Page | applicationConfigs+=ApplicationConfig | enums+=Enum | paginations+=Pagination | relationships+=Relationship)*;
 
 AbstractElement:
     Type;
@@ -22,17 +22,16 @@ Entity:
     '}';
 
 Field:
-    (many?='many')? name=ID ':' type=[Type:QualifiedName] isRequired?='required'? (min=MinValidation)? (max=MaxValidation)?;
-
+    (many?='many')? (unique?='unique')? name=ID ':' type=[Type:QualifiedName] isRequired?='required'? (min=MinValidation)? (max=MaxValidation)?;
 
 Atom:
     'atom' name=ID;
 
 MinValidation:
-    'min' '(' min=NUMBER ')';
+    'min' '(' value=NUMBER ')';
 
 MaxValidation:
-    'max' '(' max=NUMBER ')';
+    'max' '(' value=NUMBER ')';
 
 Molecule:
     'molecule' name=ID '{'
@@ -73,6 +72,14 @@ Enum:
         (values+=EnumRow)+
     '}';
 
+Relationship:
+    'relationship' relationshipType=RelationshipType '{'
+        (relationships+=RelationshipRow)+
+    '}';
+
+RelationshipRow:
+    source=[Entity:ID] 'to' destination=[Entity:ID];
+
 EnumRow:
     name=ID ('(' value=ID ')')?;
 
@@ -84,6 +91,9 @@ hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;
 terminal STRING: /"(\\.|[^"\\])*"|'(\\.|[^'\\])*'/;
 terminal NUMBER returns number: /[0-9]+(\.[0-9]*)?/;
 
+RelationshipType returns string:
+     'OneToOne' | 'OneToMany' | 'ManyToOne' | 'ManyToMany'
+;
 
 AuthenticationType returns string:
      'jwt' | 'session' | 'oauth2'
