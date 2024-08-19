@@ -2,7 +2,7 @@ grammar Masala
 
 entry Model:
     (persons+=Person | greetings+=Greeting | entities+=Entity | elements+=AbstractElement | atoms+=Atom | molecules+=Molecule | organisms+=Organism
-    | pages+=Page | applicationConfigs+=ApplicationConfig | enums+=Enum)*;
+    | pages+=Page | applicationConfigs+=ApplicationConfig | enums+=Enum | paginations+=Pagination)*;
 
 AbstractElement:
     Type;
@@ -59,6 +59,9 @@ ApplicationConfig:
         ('entities' ':' entities+=[Entity:ID])+
     '}';
 
+Pagination:
+    'paginate' entity=[Entity:ID] 'with' (paginateType=PaginationType);
+
 Enum:
     'enum' name=ID '{'
         (values+=EnumRow)+
@@ -89,4 +92,8 @@ ClientFramework returns string:
 
 DatabaseType returns string:
      'mysql' | 'mongodb' | 'cassandra' | 'couchbase' | 'no'
+;
+
+PaginationType returns string:
+     'infinite-scroll' | 'pagination' | 'pager'
 ;
