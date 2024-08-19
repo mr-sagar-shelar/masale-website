@@ -18,15 +18,21 @@ Greeting:
 
 Entity:
     'entity' name=ID ('extends' superType=[Entity:QualifiedName])? '{'
-        (features+=Feature)+
+        (fields+=Field)+
     '}';
 
-Feature:
-    (many?='many')? name=ID ':' type=[Type:QualifiedName] isRequired?='required'?;
+Field:
+    (many?='many')? name=ID ':' type=[Type:QualifiedName] isRequired?='required'? (min=MinValidation)? (max=MaxValidation)?;
 
 
 Atom:
     'atom' name=ID;
+
+MinValidation:
+    'min' '(' min=NUMBER ')';
+
+MaxValidation:
+    'max' '(' max=NUMBER ')';
 
 Molecule:
     'molecule' name=ID '{'
@@ -76,6 +82,7 @@ terminal ID: /[_a-zA-Z][\w_]*/;
 hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;
 terminal STRING: /"(\\.|[^"\\])*"|'(\\.|[^'\\])*'/;
+terminal NUMBER returns number: /[0-9]+(\.[0-9]*)?/;
 
 
 AuthenticationType returns string:
