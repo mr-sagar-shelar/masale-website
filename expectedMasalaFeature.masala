@@ -1,0 +1,185 @@
+role Admin "This role is for admin user who has access to everything" [Create, Read , Update, Delete]
+role Manager "This role is for Manager with limited access" [Create, Read , Update]
+role Client "This role is for view only access" [Read]
+
+// Below should be default permissions and user can add extra permissions by defining his own permission
+permission Create "Create permission"
+permission Read "Read permission"
+permission Update "Update permission"
+permission Delete "Delete permission"
+
+// Below are default datatypes and user can add extra datatype by defining his own datatype
+datatype ID	"A unique identifier (KSUID)"
+datatype Text "A string"
+datatype Number	"An integer"
+datatype Decimal "A decimal number"
+datatype Date "A date without time (ISO 8601 format)"
+datatype Duration "A time interval (ISO 8601 format)"
+datatype Timestamp "A UTC timestamp"
+datatype Boolean "A boolean value (true or false)"
+datatype Secret	"An encrypted secret"
+datatype Password "A hashed password"
+datatype Markdown "Rich text in Markdown format"
+datatype Vector	"A vector type"
+datatype File "A file input, supplied as a data URL"
+
+// Enums
+enum Country {
+  BELGIUM (Belgium),
+  FRANCE (France),
+  ITALY (Italy),
+  CHINA ("中国")
+}
+
+// Create avatar image for female named "Lila Martinez" with age 36 who's occupation is Project Manager at a Healthcare Organization. Lila Martinez is a project manager for a healthcare organization, focusing on IT infrastructure and patient care solutions. She has an MBA and a certification in healthcare management from Harvard University.
+
+persona PERSONA_NAME {
+    name: "Full name of the persona."
+    age: "The age of the persona in number format."
+    gender: Male/Female/Other
+    occupation: "The job or primary occupation of the persona."
+    email: "A fictional email address for the persona."
+    avatar: "Base64 image"
+    briefBio: "A brief biography of the persona, highlighting relevant experience and background, their ethnicity, socioeconomic status."
+    painPoints: [
+        "Specific challenges or pain points they face in their role or daily life."
+    ]
+    idealExperience: [
+        ID? "What kind of experience or solution would ideally address their pain points?"
+    ]
+    goals: [
+        ID? "Key objectives they aim to achieve using the application."
+    ]
+}
+
+empathyMap ID REFERENCE_PERSONA_NAME {
+    does: [
+        ID? "Key objectives they aim to achieve using the application."
+    ]
+    thinks: [
+        ID? "Key objectives they aim to achieve using the application."
+    ]
+    feels: [
+        ID? "Key objectives they aim to achieve using the application."
+    ]
+    says: [
+        ID? "Key objectives they aim to achieve using the application."
+    ]
+}
+
+experienceMap ID REFERENCE_PERSONA_NAME {
+    scenarioOverview: {
+    context: "Alex needs to use a Task Management System (TMS) to organize his daily tasks and coordinate projects with his team members. The system is used by his development team for project management.",
+    objectives: [
+      ID? "Create and assign tasks to himself and team members",
+      ID? "Set deadlines and track progress on tasks",
+      ID? "Collaborate with the team via comments and attachments in task descriptions"
+    ],
+    environment: [
+      ID? "Office setting where he uses a desktop computer",
+      ID? "Online through a web-based TMS platform accessible from his office network"
+    ]
+  },
+  touchPoints: [
+    {
+      typeOfInteraction: "Reporting and Analytics",
+      purposeGoal: "Generate reports on project progress, track time spent on tasks, and identify bottlenecks.",
+      emotion: "Pleased with the insights provided by analytics",
+      keyActions: [
+        ID? "Navigate to 'Reports' or 'Analytics' section",
+      ],
+      challengesFrustrations: [
+        ID?  "Can be overwhelming with the amount of data; needs a more streamlined way to filter and analyze"
+      ]
+    }
+  ],
+  journeyMaps: [
+    {
+      id: ID?
+      startPoint: "Alex opens a web browser and navigates to the TMS login page.",
+      endPoint: "Alex successfully logs out of the system after completing his tasks for the day.",
+      touchPointSequence: [
+        {
+          id: ID?
+          name: "Login",
+          description: "Alex enters his username and password, then clicks 'Log In'."
+        }
+      ]
+    }
+  ],
+  insightsAndRecommendations: [
+    {
+      insights: [
+        ID? "Alex values a clean and intuitive interface.",
+        ID? "He needs tools that help streamline communication and collaboration among team members.",
+        ID? "Task descriptions should be easy to understand, reducing ambiguity in project tasks."
+      ],
+      recommendations: [
+        ID? "Improve the login process with multi-factor authentication (MFA) for enhanced security.",
+        ID? "Develop a more streamlined reporting feature with customizable filters and analytics dashboards.",
+        ID? "Enhance task description fields by providing templates or suggestions to improve clarity and completeness."
+      ]
+    }
+  ]
+}
+
+journeyMaps ID REFERENCE_PERSONA_NAME {
+    "journeyStages": [
+    {
+      id: ID?
+      stageName: "Success & Completion",
+      touchPoints: ["Achieving goals", "Celebrating success"],
+      emotions: ["Relief", "Pride"],
+      paintPoints: [
+        ID? "Miscommunication or missed notifications"
+      ],
+      insights: [
+        ID? "She celebrates the successful completion of the project."
+      ]
+    }
+  ]
+}
+
+siteMaps ID {
+title: "Task Management System",
+description: "A system designed to manage tasks, projects, deadlines, and team collaboration effectively.",
+permission: "Read",
+sections: [
+    {
+        title: "Dashboard",
+        permission: Permission.ID,
+        subSections: [
+            {
+                title: "Overview",
+                content: "Provides an overview of all active tasks and projects.",
+                permission: Permission.ID
+            }
+        ]
+    }
+]
+}
+
+application MicroService1 {
+    baseName: ""
+    applicationType: gateway/microservice/web/mobile
+    authenticationType: jwt
+    databaseType: cassandra
+    entities: User 
+}
+
+entity User {
+    firstName: String required min(10) max(2000)
+}
+
+entity Docs {
+    firstName: String
+}
+
+entity Master {
+    firstName: String
+}
+
+relationship OneToOne {
+  User to User
+  Docs to Master
+}

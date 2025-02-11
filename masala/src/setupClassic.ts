@@ -13,6 +13,7 @@ export const setupConfigClassic = (): UserConfig => {
         $type: "classic",
         languageId: "masala",
         code: `
+
 // Masala is running in the web!
 datatype String
 person Sagar
@@ -22,42 +23,51 @@ Hello Sagar!
 Hello Sagar!
 
 entity User {
-   firstName: String required min(10) max(2000)
+    firstName: String required min(10) max(2000)
 }
 
-entity User {
-   firstName: String
+entity Docs {
+    firstName: String
+}
+
+entity Master {
+    firstName: String
 }
 
 atom firstName
 atom lastName
 
 molecule UserM {
-   firstName
-   lastName
+    firstName
+    lastName
 }
 
 organism UserO {
-   UserM
+    UserM
 }
 
 page UserP {
-   UserO
+    UserO
 }
 
 appConfig MicroService1 {
-   baseName: ""
-   applicationType: gateway
-   authenticationType: jwt
-   databaseType: cassandra
-   clientFramework: react
-   entities: User 
+    baseName: ""
+    applicationType: gateway
+    authenticationType: jwt
+    databaseType: cassandra
+    clientFramework: react
+    entities: User 
 }
 
 enum Country {
   BELGIUM (belgium)
   FRANCE (france)
   ITALY (italy)
+}
+
+relationship OneToOne {
+  User to User
+  Docs to Master
 }
 `,
         useDiffEditor: false,

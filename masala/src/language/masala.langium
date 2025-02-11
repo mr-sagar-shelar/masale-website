@@ -1,4 +1,5 @@
 grammar Masala
+import "./authorization"
 
 entry Model:
     (persons+=Person | greetings+=Greeting | entities+=Entity | elements+=AbstractElement | atoms+=Atom | molecules+=Molecule | organisms+=Organism
